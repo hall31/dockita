@@ -35,6 +35,14 @@
 
     --radius: 0.5rem;
   }
+
+  /* Mode Senior */
+  .senior-mode {
+    --primary: 59 130 246;
+    --accent: 59 130 246;
+    --ring: 59 130 246;
+    --radius: 0.75rem;
+  }
 }
 
 @layer base {
@@ -43,34 +51,74 @@
   }
 
   body {
-    @apply bg-white text-foreground font-light;
+    @apply bg-gray-50 text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
+  }
+
+  .senior-mode body {
+    font-size: 18px;
+    line-height: 1.8;
   }
 }
 
 @layer components {
-  .card-modern {
-    @apply bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200;
+  .card-minimal {
+    @apply bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg;
   }
   
-  .input-modern {
-    @apply bg-white border-gray-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all duration-200;
+  .input-minimal {
+    @apply bg-white border-gray-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all duration-200 rounded-md;
   }
   
-  .button-modern {
-    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors duration-200 shadow-sm;
+  .button-minimal {
+    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors duration-200 shadow-sm rounded-md;
   }
   
-  .button-outline-modern {
-    @apply border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200;
+  .button-outline-minimal {
+    @apply border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200 rounded-md;
   }
-  
-  .text-muted-modern {
-    @apply text-gray-500;
+
+  /* Mode Senior Components */
+  .senior-mode .card-minimal {
+    @apply shadow-lg border-2 rounded-xl;
   }
-  
-  .mobile-safe {
-    @apply pb-safe-area-inset-bottom;
+
+  .senior-mode .input-minimal {
+    @apply text-lg h-14 px-4 border-2 focus:border-blue-500 focus:ring-blue-200 rounded-lg;
+  }
+
+  .senior-mode .button-minimal {
+    @apply bg-blue-500 hover:bg-blue-600 text-lg h-14 px-6 rounded-lg font-semibold;
+  }
+
+  .senior-mode .button-outline-minimal {
+    @apply border-2 border-gray-300 hover:border-blue-500 hover:bg-blue-50 text-lg h-14 px-6 rounded-lg;
+  }
+
+  .senior-mode .text-minimal {
+    @apply text-lg;
+  }
+
+  .senior-mode .text-title {
+    @apply text-2xl font-semibold;
+  }
+
+  .senior-mode .text-subtitle {
+    @apply text-xl;
+  }
+}
+
+@layer utilities {
+  .senior-spacing {
+    @apply space-y-6;
+  }
+
+  .senior-padding {
+    @apply p-6;
+  }
+
+  .senior-margin {
+    @apply m-4;
   }
 }

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Stethoscope, Mail, Lock, User, Phone, GraduationCap } from 'lucide-react';
 import { useAuth } from './AuthContext';
 import { toast } from '@/hooks/use-toast';
+import SeniorModeToggle from './SeniorModeToggle';
 
 interface RegisterFormProps {
   onSwitchToLogin: () => void;
@@ -22,6 +22,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
     specialization: ''
   });
   const [loading, setLoading] = useState(false);
+  const [isSeniorMode, setIsSeniorMode] = useState(false);
   const { register } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -67,27 +68,39 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className={`min-h-screen bg-gray-50 flex items-center justify-center p-4 ${isSeniorMode ? 'senior-mode' : ''}`}>
       <div className="w-full max-w-md animate-fade-in">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-6">
-            <div className="bg-emerald-500 p-4 rounded-2xl">
-              <Stethoscope className="h-8 w-8 text-white" />
-            </div>
-          </div>
-          <h1 className="text-3xl font-light text-gray-900 mb-2">TeleMed Afrique</h1>
-          <p className="text-gray-500 font-light">Rejoignez notre communauté</p>
+        {/* Mode Senior Toggle */}
+        <div className="flex justify-end mb-4">
+          <SeniorModeToggle 
+            isSeniorMode={isSeniorMode}
+            onToggle={() => setIsSeniorMode(!isSeniorMode)}
+          />
         </div>
 
-        <Card className="card-modern border-0 shadow-lg">
-          <CardHeader className="pb-6">
-            <CardTitle className="text-center text-xl font-medium text-gray-900">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <div className="flex items-center justify-center mb-6">
+            <div className={`${isSeniorMode ? 'bg-blue-500 p-6 rounded-2xl' : 'bg-emerald-500 p-4 rounded-xl'}`}>
+              <Stethoscope className={`${isSeniorMode ? 'h-10 w-10' : 'h-8 w-8'} text-white`} />
+            </div>
+          </div>
+          <h1 className={`${isSeniorMode ? 'text-4xl font-semibold' : 'text-3xl font-light'} text-gray-900 mb-2`}>
+            TeleMed Afrique
+          </h1>
+          <p className={`${isSeniorMode ? 'text-xl' : 'text-base'} text-gray-500 font-light`}>
+            Rejoignez notre communauté
+          </p>
+        </div>
+
+        <Card className="card-minimal border-0 shadow-sm">
+          <CardHeader className={`${isSeniorMode ? 'senior-padding pb-4' : 'pb-6'}`}>
+            <CardTitle className={`text-center ${isSeniorMode ? 'text-title' : 'text-xl'} font-medium text-gray-900`}>
               Inscription
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-5">
+          <CardContent className={`${isSeniorMode ? 'senior-spacing senior-padding' : ''}`}>
+            <form onSubmit={handleSubmit} className={`${isSeniorMode ? 'senior-spacing' : 'space-y-5'}`}>
               <div className="space-y-1">
                 <label className="text-sm font-medium text-gray-700">Nom complet</label>
                 <div className="relative">
@@ -187,13 +200,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               </Button>
             </form>
 
-            <div className="text-center pt-6 border-t border-gray-100 mt-6">
-              <p className="text-gray-600 text-sm">
+            <div className={`text-center ${isSeniorMode ? 'pt-8' : 'pt-6'} border-t border-gray-100 mt-6`}>
+              <p className={`text-gray-600 ${isSeniorMode ? 'text-lg' : 'text-sm'}`}>
                 Déjà un compte ?{" "}
                 <button
                   type="button"
                   onClick={onSwitchToLogin}
-                  className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
+                  className={`${isSeniorMode ? 'text-blue-600 hover:text-blue-700' : 'text-emerald-600 hover:text-emerald-700'} font-medium transition-colors`}
                 >
                   Se connecter
                 </button>
