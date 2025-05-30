@@ -1,18 +1,18 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Home, Calendar, Video, User, Menu, Bell } from 'lucide-react';
+import { Home, Calendar, Video, User, Menu, Bell, Search } from 'lucide-react';
 import DockitaWelcome from './DockitaWelcome';
 import DockitaTeleconsultation from './DockitaTeleconsultation';
 import DockitaProfile from './DockitaProfile';
 
 const DockitaApp: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'welcome' | 'consultation' | 'profile'>('welcome');
+  const [currentView, setCurrentView] = useState<'welcome' | 'consultation' | 'profile' | 'doctors'>('welcome');
   const [language, setLanguage] = useState<'fr' | 'en'>('fr');
 
   const navigationItems = [
     { id: 'welcome', icon: Home, label: language === 'fr' ? 'Accueil' : 'Home' },
-    { id: 'calendar', icon: Calendar, label: language === 'fr' ? 'RDV' : 'Appointments' },
+    { id: 'doctors', icon: Search, label: language === 'fr' ? 'Médecins' : 'Doctors' },
     { id: 'consultation', icon: Video, label: language === 'fr' ? 'Consultation' : 'Consultation' },
     { id: 'profile', icon: User, label: language === 'fr' ? 'Profil' : 'Profile' }
   ];
@@ -20,111 +20,78 @@ const DockitaApp: React.FC = () => {
   const renderCurrentView = () => {
     switch (currentView) {
       case 'welcome':
-        return <DockitaWelcome />;
+        return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} />;
       case 'consultation':
         return <DockitaTeleconsultation onEndCall={() => setCurrentView('welcome')} />;
       case 'profile':
         return <DockitaProfile />;
+      case 'doctors':
+        return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} />;
       default:
-        return <DockitaWelcome />;
+        return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} />;
     }
   };
 
   return (
-    <div className="dockita-theme min-h-screen">
-      {/* Header mobile */}
-      <div className="dockita-nav fixed top-0 left-0 right-0 z-50 md:hidden">
-        <div className="flex items-center justify-between p-4">
+    <div className="dockita-theme min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50">
+      {/* Header mobile fixe */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-emerald-100 shadow-sm">
+        <div className="flex items-center justify-between p-4 safe-area-top">
           <div className="flex items-center space-x-3">
-            <Menu className="h-6 w-6 text-slate-600" />
-            <h1 className="text-xl font-bold text-emerald-600">Dockita</h1>
+            <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-lg">D</span>
+            </div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
+              Dockita
+            </h1>
           </div>
           <div className="flex items-center space-x-3">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="text-slate-600"
+              className="text-emerald-600 font-medium bg-emerald-50 hover:bg-emerald-100 rounded-full px-3 py-1"
             >
               {language.toUpperCase()}
             </Button>
-            <Bell className="h-6 w-6 text-slate-600" />
+            <div className="relative">
+              <Bell className="h-6 w-6 text-emerald-600" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-400 rounded-full"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Contenu principal */}
-      <div className={`${currentView !== 'consultation' ? 'pt-16 pb-20 md:pt-0 md:pb-0' : ''}`}>
+      {/* Contenu principal avec padding pour header et navigation */}
+      <div className={`${currentView !== 'consultation' ? 'pt-20 pb-24' : 'pt-0 pb-0'} min-h-screen`}>
         {renderCurrentView()}
       </div>
 
-      {/* Navigation bottom (mobile) */}
+      {/* Navigation bottom fixe (cachée pendant consultation) */}
       {currentView !== 'consultation' && (
-        <div className="dockita-nav fixed bottom-0 left-0 right-0 z-50 md:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-t border-emerald-100 shadow-lg safe-area-bottom">
           <div className="grid grid-cols-4 gap-1 p-2">
             {navigationItems.map((item) => (
               <Button
                 key={item.id}
                 variant="ghost"
                 onClick={() => setCurrentView(item.id as any)}
-                className={`flex flex-col items-center py-3 px-2 ${
+                className={`flex flex-col items-center py-3 px-2 rounded-xl transition-all duration-300 ${
                   currentView === item.id
-                    ? 'text-emerald-600 bg-emerald-50'
-                    : 'text-slate-600'
+                    ? 'text-emerald-600 bg-gradient-to-t from-emerald-50 to-emerald-100 shadow-md border border-emerald-200'
+                    : 'text-slate-600 hover:text-emerald-600 hover:bg-emerald-50'
                 }`}
               >
-                <item.icon className="h-5 w-5 mb-1" />
+                <item.icon className={`h-6 w-6 mb-1 ${currentView === item.id ? 'animate-pulse' : ''}`} />
                 <span className="text-xs font-medium">{item.label}</span>
+                {currentView === item.id && (
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full"></div>
+                )}
               </Button>
             ))}
           </div>
         </div>
       )}
-
-      {/* Navigation sidebar (desktop) */}
-      <div className="hidden md:block fixed left-0 top-0 h-full w-64 dockita-nav z-40">
-        <div className="p-6">
-          <div className="flex items-center space-x-3 mb-8">
-            <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold">D</span>
-            </div>
-            <h1 className="text-2xl font-bold text-emerald-600">Dockita</h1>
-          </div>
-          
-          <nav className="space-y-2">
-            {navigationItems.map((item) => (
-              <Button
-                key={item.id}
-                variant="ghost"
-                onClick={() => setCurrentView(item.id as any)}
-                className={`w-full justify-start ${
-                  currentView === item.id
-                    ? 'bg-emerald-50 text-emerald-600 border-r-2 border-emerald-500'
-                    : 'text-slate-600 hover:bg-slate-50'
-                }`}
-              >
-                <item.icon className="h-5 w-5 mr-3" />
-                {item.label}
-              </Button>
-            ))}
-          </nav>
-
-          <div className="absolute bottom-6 left-6 right-6">
-            <Button
-              variant="outline"
-              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="w-full dockita-button-outline"
-            >
-              {language === 'fr' ? 'Switch to English' : 'Passer en français'}
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Contenu principal avec marge pour sidebar sur desktop */}
-      <div className="hidden md:block md:ml-64">
-        {/* Le contenu est déjà rendu ci-dessus */}
-      </div>
     </div>
   );
 };
