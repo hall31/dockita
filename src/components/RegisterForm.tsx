@@ -18,7 +18,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
     email: '',
     password: '',
     phone: '',
-    role: '' as 'patient' | 'doctor' | '',
+    role: null as 'patient' | 'doctor' | null,
     specialization: ''
   });
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
 
     setLoading(true);
     
-    const success = await register(formData);
+    const success = await register({
+      ...formData,
+      role: formData.role
+    });
     
     if (success) {
       toast({
@@ -57,6 +60,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleRoleChange = (value: 'patient' | 'doctor') => {
+    setFormData(prev => ({ ...prev, role: value }));
   };
 
   return (
@@ -127,7 +134,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
                 />
               </div>
 
-              <Select onValueChange={(value) => handleInputChange('role', value)}>
+              <Select onValueChange={handleRoleChange}>
                 <SelectTrigger className="bg-white/10 border-white/20 text-white">
                   <SelectValue placeholder="Je suis..." />
                 </SelectTrigger>
