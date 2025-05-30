@@ -12,9 +12,11 @@ const SeniorModeToggle: React.FC<SeniorModeToggleProps> = ({ isSeniorMode, onTog
   return (
     <Button
       onClick={onToggle}
-      variant="outline"
-      size="sm"
-      className="flex items-center gap-2 text-slate-600 hover:text-slate-900 border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50"
+      className={`flex items-center gap-2 transition-all duration-300 ${
+        isSeniorMode 
+          ? 'bg-[#D4AF37] text-[#0A3D2F] hover:bg-[#B8941F]' 
+          : 'bg-white/10 text-[#A3D9C2] hover:bg-white/20 border border-[#388E6D]/30'
+      } backdrop-blur-lg rounded-lg px-4 py-2`}
     >
       {isSeniorMode ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
       <span className="text-sm font-medium">

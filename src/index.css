@@ -3,45 +3,59 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @layer base {
   :root {
-    --background: 255 255 255;
-    --foreground: 15 23 42;
+    --background: 10 61 47; /* #0A3D2F - Deep forest green */
+    --foreground: 255 255 255;
 
-    --card: 255 255 255;
-    --card-foreground: 15 23 42;
+    --card: 28 94 71; /* #1C5E47 - Lighter forest green */
+    --card-foreground: 255 255 255;
 
-    --popover: 255 255 255;
-    --popover-foreground: 15 23 42;
+    --popover: 28 94 71;
+    --popover-foreground: 255 255 255;
 
-    --primary: 71 85 105;
+    --primary: 56 142 109; /* #388E6D - Medium green */
     --primary-foreground: 255 255 255;
 
-    --secondary: 248 250 252;
-    --secondary-foreground: 71 85 105;
+    --secondary: 28 94 71;
+    --secondary-foreground: 255 255 255;
 
-    --muted: 248 250 252;
-    --muted-foreground: 100 116 139;
+    --muted: 28 94 71;
+    --muted-foreground: 200 220 210;
 
-    --accent: 71 85 105;
-    --accent-foreground: 255 255 255;
+    --accent: 212 175 55; /* #D4AF37 - Muted gold */
+    --accent-foreground: 10 61 47;
 
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
 
-    --border: 226 232 240;
-    --input: 226 232 240;
-    --ring: 71 85 105;
+    --border: 56 142 109;
+    --input: 28 94 71;
+    --ring: 212 175 55;
 
-    --radius: 8px;
+    --radius: 12px;
+
+    /* African theme specific colors */
+    --africa-50: 240 253 244;
+    --africa-100: 220 252 231;
+    --africa-200: 187 247 208;
+    --africa-300: 134 239 172;
+    --africa-400: 74 222 128;
+    --africa-500: 34 197 94;
+    --africa-600: 22 163 74;
+    --africa-700: 21 128 61;
+    --africa-800: 22 101 52;
+    --africa-900: 20 83 45;
   }
 
-  /* Mode Senior */
+  /* Mode Senior avec adaptation au thème africain */
   .senior-mode {
-    --primary: 37 99 235;
-    --accent: 37 99 235;
-    --ring: 37 99 235;
-    --radius: 12px;
+    --primary: 212 175 55;
+    --accent: 212 175 55;
+    --ring: 212 175 55;
+    --radius: 16px;
   }
 }
 
@@ -51,51 +65,81 @@
   }
 
   body {
-    @apply bg-white text-foreground;
+    @apply bg-gradient-to-br from-[#0A3D2F] via-[#1C5E47] to-[#0F4A37] text-foreground min-h-screen;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height: 1.5;
+    line-height: 1.6;
     font-weight: 400;
   }
 
   .senior-mode body {
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
     font-weight: 500;
   }
 }
 
 @layer components {
-  .card-modern {
-    @apply bg-white border border-slate-200 hover:border-slate-300 transition-colors duration-200 rounded-lg;
+  /* African themed glass effect */
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  }
+
+  .card-african {
+    @apply bg-gradient-to-br from-[#1C5E47] to-[#0A3D2F] border border-[#388E6D]/30 hover:border-[#D4AF37]/50 transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl;
   }
   
-  .input-modern {
-    @apply bg-white border-slate-200 focus:border-slate-400 focus:ring-1 focus:ring-slate-400 transition-all duration-200 rounded-lg h-12 px-4;
+  .input-african {
+    @apply bg-[#1C5E47]/80 border-[#388E6D] focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200 rounded-lg h-12 px-4 text-white placeholder:text-[#A3D9C2];
   }
   
-  .button-modern {
-    @apply bg-slate-600 hover:bg-slate-700 text-white font-medium transition-colors duration-200 rounded-lg h-12 px-6;
+  .button-african {
+    @apply bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-[#0A3D2F] font-semibold transition-all duration-300 rounded-lg h-12 px-6 shadow-lg hover:shadow-xl transform hover:scale-105;
   }
   
-  .button-outline-modern {
-    @apply border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-medium transition-all duration-200 rounded-lg h-12 px-6;
+  .button-african-outline {
+    @apply border-2 border-[#D4AF37] bg-transparent hover:bg-[#D4AF37]/10 text-[#D4AF37] hover:text-white font-semibold transition-all duration-300 rounded-lg h-12 px-6;
   }
 
-  /* Mode Senior Components */
-  .senior-mode .card-modern {
-    @apply border-2 border-slate-300 rounded-xl;
+  .button-african-secondary {
+    @apply bg-[#388E6D] hover:bg-[#2A6B52] text-white font-medium transition-all duration-200 rounded-lg h-12 px-6;
   }
 
-  .senior-mode .input-modern {
-    @apply text-lg h-16 px-6 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl;
+  /* African pattern overlay (subtle) */
+  .african-pattern {
+    position: relative;
   }
 
-  .senior-mode .button-modern {
-    @apply bg-blue-600 hover:bg-blue-700 text-xl h-16 px-8 rounded-xl font-semibold;
+  .african-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.03) 0%, transparent 25%),
+      radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.03) 0%, transparent 25%);
+    background-size: 60px 60px;
+    pointer-events: none;
+    border-radius: inherit;
   }
 
-  .senior-mode .button-outline-modern {
-    @apply border-2 border-slate-300 hover:border-blue-500 hover:bg-blue-50 text-xl h-16 px-8 rounded-xl font-semibold;
+  /* Senior mode adaptations */
+  .senior-mode .card-african {
+    @apply border-2 border-[#D4AF37]/50 rounded-2xl;
+  }
+
+  .senior-mode .input-african {
+    @apply text-lg h-16 px-6 border-2 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 rounded-xl;
+  }
+
+  .senior-mode .button-african {
+    @apply text-xl h-16 px-8 rounded-xl font-bold;
+  }
+
+  .senior-mode .button-african-outline {
+    @apply border-3 text-xl h-16 px-8 rounded-xl font-bold;
   }
 
   .senior-mode .text-large {
@@ -103,11 +147,38 @@
   }
 
   .senior-mode .text-title {
-    @apply text-3xl font-bold;
+    @apply text-4xl font-bold;
   }
 
   .senior-mode .text-subtitle {
-    @apply text-2xl font-medium;
+    @apply text-2xl font-semibold;
+  }
+
+  /* Navigation enhancements */
+  .nav-african {
+    @apply bg-gradient-to-r from-[#0A3D2F] to-[#1C5E47] border-t border-[#388E6D]/30 backdrop-blur-lg;
+  }
+
+  /* Status indicators */
+  .status-active {
+    @apply bg-[#22c55e] text-white;
+  }
+
+  .status-pending {
+    @apply bg-[#D4AF37] text-[#0A3D2F];
+  }
+
+  .status-inactive {
+    @apply bg-[#6b7280] text-white;
+  }
+
+  /* Meeting countdown */
+  .countdown-active {
+    @apply bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-[#0A3D2F] animate-pulse;
+  }
+
+  .countdown-pending {
+    @apply bg-[#388E6D] text-white;
   }
 }
 
@@ -123,4 +194,67 @@
   .senior-margin {
     @apply m-6;
   }
+
+  /* Custom scrollbar for African theme */
+  .african-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .african-scrollbar::-webkit-scrollbar-track {
+    background: rgba(28, 94, 71, 0.3);
+    border-radius: 4px;
+  }
+
+  .african-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.6);
+    border-radius: 4px;
+  }
+
+  .african-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.8);
+  }
+}
+
+/* Animations africaines */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseGold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 0.8s ease-out;
+}
+
+.animate-pulse-gold {
+  animation: pulseGold 2s infinite;
 }
