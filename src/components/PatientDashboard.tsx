@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Video, Search, Star, MapPin, Phone } from 'lucide-react';
+import { Calendar, Clock, Video, Search, Star, MapPin, Phone, ChevronRight } from 'lucide-react';
 import { useAuth } from './AuthContext';
 
 const PatientDashboard: React.FC = () => {
@@ -54,11 +54,11 @@ const PatientDashboard: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed': return 'bg-green-500';
-      case 'pending': return 'bg-yellow-500';
-      case 'completed': return 'bg-blue-500';
-      case 'cancelled': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      case 'confirmed': return 'bg-emerald-100 text-emerald-700';
+      case 'pending': return 'bg-yellow-100 text-yellow-700';
+      case 'completed': return 'bg-blue-100 text-blue-700';
+      case 'cancelled': return 'bg-red-100 text-red-700';
+      default: return 'bg-gray-100 text-gray-700';
     }
   };
 
@@ -73,34 +73,34 @@ const PatientDashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-africa-900 via-africa-800 to-emerald-900 p-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto p-4">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            Bonjour {user?.name} 👋
+        <div className="mb-8 pt-4">
+          <h1 className="text-2xl font-light text-gray-900 mb-2">
+            Bonjour {user?.name}
           </h1>
-          <p className="text-africa-200">Gérez vos consultations médicales</p>
+          <p className="text-gray-500">Gérez vos consultations médicales</p>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-1 mb-8 bg-white/10 p-1 rounded-lg backdrop-blur-lg">
+        <div className="flex mb-8 bg-white rounded-lg p-1 shadow-sm border border-gray-100">
           <Button
             onClick={() => setActiveTab('appointments')}
             variant={activeTab === 'appointments' ? 'default' : 'ghost'}
-            className={`flex-1 ${activeTab === 'appointments' 
-              ? 'bg-accent text-primary' 
-              : 'text-white hover:bg-white/20'}`}
+            className={`flex-1 h-10 ${activeTab === 'appointments' 
+              ? 'bg-emerald-500 text-white shadow-sm' 
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}
           >
             <Calendar className="h-4 w-4 mr-2" />
-            Mes RDV
+            Mes rendez-vous
           </Button>
           <Button
             onClick={() => setActiveTab('doctors')}
             variant={activeTab === 'doctors' ? 'default' : 'ghost'}
-            className={`flex-1 ${activeTab === 'doctors' 
-              ? 'bg-accent text-primary' 
-              : 'text-white hover:bg-white/20'}`}
+            className={`flex-1 h-10 ${activeTab === 'doctors' 
+              ? 'bg-emerald-500 text-white shadow-sm' 
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}
           >
             <Search className="h-4 w-4 mr-2" />
             Médecins
@@ -109,28 +109,28 @@ const PatientDashboard: React.FC = () => {
 
         {/* Mes Rendez-vous */}
         {activeTab === 'appointments' && (
-          <div className="space-y-6 animate-fade-in">
-            <Card className="glass-effect border-white/20">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Calendar className="h-5 w-5" />
+          <div className="space-y-4 animate-fade-in">
+            <Card className="card-modern">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-emerald-500" />
                   Mes rendez-vous
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {mockAppointments.map((appointment) => (
-                  <div key={appointment.id} className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                  <div key={appointment.id} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h3 className="text-white font-semibold">{appointment.doctor}</h3>
-                        <p className="text-africa-200 text-sm">{appointment.specialization}</p>
+                        <h3 className="font-medium text-gray-900">{appointment.doctor}</h3>
+                        <p className="text-gray-500 text-sm">{appointment.specialization}</p>
                       </div>
-                      <Badge className={`${getStatusColor(appointment.status)} text-white border-0`}>
+                      <Badge className={`${getStatusColor(appointment.status)} border-0 font-medium`}>
                         {getStatusText(appointment.status)}
                       </Badge>
                     </div>
                     
-                    <div className="flex items-center gap-4 text-africa-200 text-sm mb-3">
+                    <div className="flex items-center gap-4 text-gray-500 text-sm mb-4">
                       <div className="flex items-center gap-1">
                         <Calendar className="h-4 w-4" />
                         {new Date(appointment.date).toLocaleDateString('fr-FR')}
@@ -144,7 +144,7 @@ const PatientDashboard: React.FC = () => {
                     <div className="flex gap-2">
                       <Button 
                         size="sm" 
-                        className="bg-accent hover:bg-accent/90 text-primary"
+                        className="button-modern h-9"
                         disabled={!appointment.canJoin}
                       >
                         <Video className="h-4 w-4 mr-2" />
@@ -153,9 +153,10 @@ const PatientDashboard: React.FC = () => {
                       <Button 
                         size="sm" 
                         variant="outline" 
-                        className="border-white/20 text-white hover:bg-white/10"
+                        className="button-outline-modern h-9"
                       >
                         Détails
+                        <ChevronRight className="h-4 w-4 ml-1" />
                       </Button>
                     </div>
                   </div>
@@ -167,38 +168,38 @@ const PatientDashboard: React.FC = () => {
 
         {/* Recherche de Médecins */}
         {activeTab === 'doctors' && (
-          <div className="space-y-6 animate-fade-in">
-            <Card className="glass-effect border-white/20">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center gap-2">
-                  <Search className="h-5 w-5" />
+          <div className="space-y-4 animate-fade-in">
+            <Card className="card-modern">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                  <Search className="h-5 w-5 text-emerald-500" />
                   Médecins disponibles
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {mockDoctors.map((doctor) => (
-                  <div key={doctor.id} className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                  <div key={doctor.id} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h3 className="text-white font-semibold">{doctor.name}</h3>
-                        <p className="text-africa-200 text-sm">{doctor.specialization}</p>
-                        <div className="flex items-center gap-2 mt-1">
+                        <h3 className="font-medium text-gray-900">{doctor.name}</h3>
+                        <p className="text-gray-500 text-sm">{doctor.specialization}</p>
+                        <div className="flex items-center gap-2 mt-2">
                           <div className="flex items-center gap-1">
-                            <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                            <span className="text-africa-200 text-sm">{doctor.rating}</span>
+                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                            <span className="text-gray-600 text-sm font-medium">{doctor.rating}</span>
                           </div>
-                          <span className="text-africa-300 text-sm">•</span>
-                          <span className="text-africa-200 text-sm">{doctor.experience}</span>
+                          <span className="text-gray-300">•</span>
+                          <span className="text-gray-500 text-sm">{doctor.experience}</span>
                         </div>
                       </div>
                       <Badge 
-                        className={`${doctor.status === 'connected' ? 'bg-green-500' : 'bg-blue-500'} text-white border-0`}
+                        className={`${doctor.status === 'connected' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700'} border-0 font-medium`}
                       >
                         {doctor.status === 'connected' ? 'Connecté' : 'Disponible'}
                       </Badge>
                     </div>
                     
-                    <div className="flex items-center gap-1 text-africa-200 text-sm mb-3">
+                    <div className="flex items-center gap-1 text-gray-500 text-sm mb-4">
                       <MapPin className="h-4 w-4" />
                       {doctor.location}
                     </div>
@@ -206,14 +207,14 @@ const PatientDashboard: React.FC = () => {
                     <div className="flex gap-2">
                       <Button 
                         size="sm" 
-                        className="bg-accent hover:bg-accent/90 text-primary"
+                        className="button-modern h-9"
                       >
-                        Prendre RDV
+                        Prendre rendez-vous
                       </Button>
                       <Button 
                         size="sm" 
                         variant="outline" 
-                        className="border-white/20 text-white hover:bg-white/10"
+                        className="button-outline-modern h-9"
                       >
                         <Phone className="h-4 w-4 mr-2" />
                         Contacter

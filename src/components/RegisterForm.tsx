@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Stethoscope, Heart, Mail, Lock, User, Phone, GraduationCap } from 'lucide-react';
+import { Stethoscope, Mail, Lock, User, Phone, GraduationCap } from 'lucide-react';
 import { useAuth } from './AuthContext';
 import { toast } from '@/hooks/use-toast';
 
@@ -67,118 +67,138 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-africa-900 via-africa-800 to-emerald-900">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md animate-fade-in">
+        {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="bg-accent p-3 rounded-full">
-              <Stethoscope className="h-8 w-8 text-primary" />
+          <div className="flex items-center justify-center mb-6">
+            <div className="bg-emerald-500 p-4 rounded-2xl">
+              <Stethoscope className="h-8 w-8 text-white" />
             </div>
-            <Heart className="h-6 w-6 text-red-400 animate-pulse" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">TeleMed Afrique</h1>
-          <p className="text-africa-200">Rejoignez notre communauté</p>
+          <h1 className="text-3xl font-light text-gray-900 mb-2">TeleMed Afrique</h1>
+          <p className="text-gray-500 font-light">Rejoignez notre communauté</p>
         </div>
 
-        <Card className="glass-effect border-white/20">
-          <CardHeader>
-            <CardTitle className="text-center text-white">Inscription</CardTitle>
+        <Card className="card-modern border-0 shadow-lg">
+          <CardHeader className="pb-6">
+            <CardTitle className="text-center text-xl font-medium text-gray-900">
+              Inscription
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="relative">
-                <User className="absolute left-3 top-3 h-4 w-4 text-africa-300" />
-                <Input
-                  type="text"
-                  placeholder="Nom complet"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-africa-300"
-                  required
-                />
-              </div>
-              
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-africa-300" />
-                <Input
-                  type="email"
-                  placeholder="Adresse email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-africa-300"
-                  required
-                />
-              </div>
-
-              <div className="relative">
-                <Phone className="absolute left-3 top-3 h-4 w-4 text-africa-300" />
-                <Input
-                  type="tel"
-                  placeholder="Numéro de téléphone"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-africa-300"
-                  required
-                />
-              </div>
-              
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-africa-300" />
-                <Input
-                  type="password"
-                  placeholder="Mot de passe"
-                  value={formData.password}
-                  onChange={(e) => handleInputChange('password', e.target.value)}
-                  className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-africa-300"
-                  required
-                />
-              </div>
-
-              <Select onValueChange={handleRoleChange}>
-                <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                  <SelectValue placeholder="Je suis..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="patient">Patient</SelectItem>
-                  <SelectItem value="doctor">Médecin</SelectItem>
-                </SelectContent>
-              </Select>
-
-              {formData.role === 'doctor' && (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">Nom complet</label>
                 <div className="relative">
-                  <GraduationCap className="absolute left-3 top-3 h-4 w-4 text-africa-300" />
+                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
                     type="text"
-                    placeholder="Spécialisation"
-                    value={formData.specialization}
-                    onChange={(e) => handleInputChange('specialization', e.target.value)}
-                    className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-africa-300"
+                    placeholder="Votre nom complet"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className="pl-10 input-modern h-11"
                     required
                   />
+                </div>
+              </div>
+              
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">Email</label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    type="email"
+                    placeholder="votre@email.com"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    className="pl-10 input-modern h-11"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">Téléphone</label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    type="tel"
+                    placeholder="+XXX XX XX XX XX"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    className="pl-10 input-modern h-11"
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">Mot de passe</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    type="password"
+                    placeholder="••••••••"
+                    value={formData.password}
+                    onChange={(e) => handleInputChange('password', e.target.value)}
+                    className="pl-10 input-modern h-11"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-700">Je suis</label>
+                <Select onValueChange={handleRoleChange}>
+                  <SelectTrigger className="input-modern h-11">
+                    <SelectValue placeholder="Sélectionnez votre rôle" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="patient">Patient</SelectItem>
+                    <SelectItem value="doctor">Médecin</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {formData.role === 'doctor' && (
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-700">Spécialisation</label>
+                  <div className="relative">
+                    <GraduationCap className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      type="text"
+                      placeholder="Votre spécialisation"
+                      value={formData.specialization}
+                      onChange={(e) => handleInputChange('specialization', e.target.value)}
+                      className="pl-10 input-modern h-11"
+                      required
+                    />
+                  </div>
                 </div>
               )}
 
               <Button
                 type="submit"
-                className="w-full bg-accent hover:bg-accent/90 text-primary font-semibold"
+                className="w-full button-modern h-11 mt-8"
                 disabled={loading}
               >
                 {loading ? "Inscription..." : "S'inscrire"}
               </Button>
-
-              <div className="text-center pt-4">
-                <p className="text-africa-200 text-sm">
-                  Déjà un compte ?{" "}
-                  <button
-                    type="button"
-                    onClick={onSwitchToLogin}
-                    className="text-accent hover:underline font-semibold"
-                  >
-                    Se connecter
-                  </button>
-                </p>
-              </div>
             </form>
+
+            <div className="text-center pt-6 border-t border-gray-100 mt-6">
+              <p className="text-gray-600 text-sm">
+                Déjà un compte ?{" "}
+                <button
+                  type="button"
+                  onClick={onSwitchToLogin}
+                  className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
+                >
+                  Se connecter
+                </button>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>

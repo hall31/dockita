@@ -6,43 +6,34 @@
 @layer base {
   :root {
     --background: 255 255 255;
-    --foreground: 5 95 70;
+    --foreground: 17 24 39;
 
     --card: 255 255 255;
-    --card-foreground: 5 95 70;
+    --card-foreground: 17 24 39;
 
     --popover: 255 255 255;
-    --popover-foreground: 5 95 70;
+    --popover-foreground: 17 24 39;
 
-    --primary: 5 95 70;
+    --primary: 16 185 129;
     --primary-foreground: 255 255 255;
 
-    --secondary: 240 253 244;
-    --secondary-foreground: 5 95 70;
+    --secondary: 249 250 251;
+    --secondary-foreground: 75 85 99;
 
     --muted: 249 250 251;
     --muted-foreground: 107 114 128;
 
-    --accent: 251 191 36;
-    --accent-foreground: 5 95 70;
+    --accent: 16 185 129;
+    --accent-foreground: 255 255 255;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
 
     --border: 229 231 235;
     --input: 229 231 235;
-    --ring: 5 95 70;
+    --ring: 16 185 129;
 
-    --radius: 0.75rem;
-
-    --sidebar-background: 5 95 70;
-    --sidebar-foreground: 255 255 255;
-    --sidebar-primary: 251 191 36;
-    --sidebar-primary-foreground: 5 95 70;
-    --sidebar-accent: 20 83 45;
-    --sidebar-accent-foreground: 255 255 255;
-    --sidebar-border: 20 83 45;
-    --sidebar-ring: 251 191 36;
+    --radius: 0.5rem;
   }
 }
 
@@ -52,14 +43,31 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-africa-900 via-africa-800 to-emerald-900 text-foreground min-h-screen;
+    @apply bg-white text-foreground font-light;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
   }
 }
 
 @layer components {
-  .glass-effect {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  .card-modern {
+    @apply bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .input-modern {
+    @apply bg-white border-gray-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all duration-200;
+  }
+  
+  .button-modern {
+    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors duration-200 shadow-sm;
+  }
+  
+  .button-outline-modern {
+    @apply border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200;
+  }
+  
+  .text-muted-modern {
+    @apply text-gray-500;
   }
   
   .mobile-safe {
