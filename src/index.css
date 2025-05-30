@@ -3,59 +3,53 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
 
 @layer base {
   :root {
-    --background: 10 61 47; /* #0A3D2F - Deep forest green */
-    --foreground: 255 255 255;
+    /* Palette Dockita - Moderne et chaleureuse */
+    --background: 248 250 252; /* Blanc cassé */
+    --foreground: 30 41 59; /* Gris foncé */
 
-    --card: 28 94 71; /* #1C5E47 - Lighter forest green */
-    --card-foreground: 255 255 255;
+    --card: 255 255 255; /* Blanc pur */
+    --card-foreground: 30 41 59;
 
-    --popover: 28 94 71;
-    --popover-foreground: 255 255 255;
+    --popover: 255 255 255;
+    --popover-foreground: 30 41 59;
 
-    --primary: 56 142 109; /* #388E6D - Medium green */
+    --primary: 16 185 129; /* Vert émeraude #10b981 */
     --primary-foreground: 255 255 255;
 
-    --secondary: 28 94 71;
+    --secondary: 251 146 60; /* Orange chaud #fb923c */
     --secondary-foreground: 255 255 255;
 
-    --muted: 28 94 71;
-    --muted-foreground: 200 220 210;
+    --muted: 241 245 249; /* Gris très clair */
+    --muted-foreground: 100 116 139;
 
-    --accent: 212 175 55; /* #D4AF37 - Muted gold */
-    --accent-foreground: 10 61 47;
+    --accent: 239 68 68; /* Rouge accent pour urgences */
+    --accent-foreground: 255 255 255;
 
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
 
-    --border: 56 142 109;
-    --input: 28 94 71;
-    --ring: 212 175 55;
+    --border: 226 232 240;
+    --input: 241 245 249;
+    --ring: 16 185 129;
 
     --radius: 12px;
 
-    /* African theme specific colors */
-    --africa-50: 240 253 244;
-    --africa-100: 220 252 231;
-    --africa-200: 187 247 208;
-    --africa-300: 134 239 172;
-    --africa-400: 74 222 128;
-    --africa-500: 34 197 94;
-    --africa-600: 22 163 74;
-    --africa-700: 21 128 61;
-    --africa-800: 22 101 52;
-    --africa-900: 20 83 45;
+    /* Couleurs africaines spécifiques */
+    --dockita-emerald: 16 185 129; /* Vert émeraude principal */
+    --dockita-orange: 251 146 60; /* Orange chaud */
+    --dockita-earth: 180 83 9; /* Ton terre #b45309 */
+    --dockita-gold: 245 158 11; /* Or africain #f59e0b */
+    --dockita-warm-gray: 120 113 108; /* Gris chaud */
   }
 
-  /* Mode Senior avec adaptation au thème africain */
-  .senior-mode {
-    --primary: 212 175 55;
-    --accent: 212 175 55;
-    --ring: 212 175 55;
-    --radius: 16px;
+  .dockita-theme {
+    --primary: var(--dockita-emerald);
+    --secondary: var(--dockita-orange);
+    --accent: var(--dockita-gold);
   }
 }
 
@@ -65,47 +59,40 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-[#0A3D2F] via-[#1C5E47] to-[#0F4A37] text-foreground min-h-screen;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    @apply bg-slate-50 text-foreground;
+    font-family: 'Montserrat', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
     font-weight: 400;
   }
 
-  .senior-mode body {
-    font-size: 18px;
-    line-height: 1.7;
-    font-weight: 500;
+  .dockita-theme body {
+    @apply bg-gradient-to-br from-emerald-50 via-white to-orange-50;
   }
 }
 
 @layer components {
-  /* African themed glass effect */
-  .glass-effect {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  /* Composants Dockita */
+  .dockita-card {
+    @apply bg-white rounded-xl shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300;
   }
 
-  .card-african {
-    @apply bg-gradient-to-br from-[#1C5E47] to-[#0A3D2F] border border-[#388E6D]/30 hover:border-[#D4AF37]/50 transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl;
-  }
-  
-  .input-african {
-    @apply bg-[#1C5E47]/80 border-[#388E6D] focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 transition-all duration-200 rounded-lg h-12 px-4 text-white placeholder:text-[#A3D9C2];
-  }
-  
-  .button-african {
-    @apply bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-[#0A3D2F] font-semibold transition-all duration-300 rounded-lg h-12 px-6 shadow-lg hover:shadow-xl transform hover:scale-105;
-  }
-  
-  .button-african-outline {
-    @apply border-2 border-[#D4AF37] bg-transparent hover:bg-[#D4AF37]/10 text-[#D4AF37] hover:text-white font-semibold transition-all duration-300 rounded-lg h-12 px-6;
+  .dockita-button-primary {
+    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105;
   }
 
-  .button-african-secondary {
-    @apply bg-[#388E6D] hover:bg-[#2A6B52] text-white font-medium transition-all duration-200 rounded-lg h-12 px-6;
+  .dockita-button-secondary {
+    @apply bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
-  /* African pattern overlay (subtle) */
+  .dockita-button-outline {
+    @apply border-2 border-emerald-500 bg-transparent hover:bg-emerald-50 text-emerald-600 hover:text-emerald-700 font-semibold py-3 px-6 rounded-xl transition-all duration-300;
+  }
+
+  .dockita-input {
+    @apply bg-slate-100 border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-lg px-4 py-3 text-slate-700 placeholder:text-slate-400;
+  }
+
+  /* Motifs africains subtils */
   .african-pattern {
     position: relative;
   }
@@ -118,108 +105,107 @@
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.03) 0%, transparent 25%),
-      radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.03) 0%, transparent 25%);
-    background-size: 60px 60px;
+      radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 30%),
+      radial-gradient(circle at 80% 80%, rgba(251, 146, 60, 0.05) 0%, transparent 30%);
+    background-size: 80px 80px;
     pointer-events: none;
     border-radius: inherit;
   }
 
-  /* Senior mode adaptations */
-  .senior-mode .card-african {
-    @apply border-2 border-[#D4AF37]/50 rounded-2xl;
+  /* Indicateurs de statut */
+  .status-online {
+    @apply bg-emerald-400 text-white;
   }
 
-  .senior-mode .input-african {
-    @apply text-lg h-16 px-6 border-2 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 rounded-xl;
+  .status-busy {
+    @apply bg-orange-400 text-white;
   }
 
-  .senior-mode .button-african {
-    @apply text-xl h-16 px-8 rounded-xl font-bold;
+  .status-offline {
+    @apply bg-slate-400 text-white;
   }
 
-  .senior-mode .button-african-outline {
-    @apply border-2 text-xl h-16 px-8 rounded-xl font-bold;
+  /* Cartes de médecins */
+  .doctor-card {
+    @apply dockita-card p-6 hover:border-emerald-200 cursor-pointer;
   }
 
-  .senior-mode .text-large {
-    @apply text-xl;
+  .doctor-card:hover {
+    @apply shadow-emerald-100;
   }
 
-  .senior-mode .text-title {
-    @apply text-4xl font-bold;
+  /* Éléments de téléconsultation */
+  .video-container {
+    @apply relative bg-slate-900 rounded-xl overflow-hidden shadow-2xl;
   }
 
-  .senior-mode .text-subtitle {
-    @apply text-2xl font-semibold;
+  .floating-controls {
+    @apply absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4;
   }
 
-  /* Navigation enhancements */
-  .nav-african {
-    @apply bg-gradient-to-r from-[#0A3D2F] to-[#1C5E47] border-t border-[#388E6D]/30 backdrop-blur-lg;
+  .control-button {
+    @apply w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300;
   }
 
-  /* Status indicators */
-  .status-active {
-    @apply bg-[#22c55e] text-white;
+  .control-button.active {
+    @apply bg-emerald-500 text-white;
   }
 
-  .status-pending {
-    @apply bg-[#D4AF37] text-[#0A3D2F];
+  .control-button.inactive {
+    @apply bg-red-500 text-white;
   }
 
-  .status-inactive {
-    @apply bg-[#6b7280] text-white;
+  /* Navigation africaine */
+  .dockita-nav {
+    @apply bg-white/95 backdrop-blur-lg border-t border-slate-200 shadow-lg;
   }
 
-  /* Meeting countdown */
-  .countdown-active {
-    @apply bg-gradient-to-r from-[#D4AF37] to-[#B8941F] text-[#0A3D2F] animate-pulse;
+  /* Cartes de santé */
+  .health-card {
+    @apply dockita-card p-4 bg-gradient-to-r from-emerald-50 to-orange-50;
   }
 
-  .countdown-pending {
-    @apply bg-[#388E6D] text-white;
+  /* Animations fluides */
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.4s ease-out;
   }
 }
 
 @layer utilities {
-  .senior-spacing {
-    @apply space-y-8;
+  .text-dockita-emerald {
+    color: rgb(16 185 129);
   }
 
-  .senior-padding {
-    @apply p-8;
+  .text-dockita-orange {
+    color: rgb(251 146 60);
   }
 
-  .senior-margin {
-    @apply m-6;
+  .text-dockita-earth {
+    color: rgb(180 83 9);
   }
 
-  /* Custom scrollbar for African theme */
-  .african-scrollbar::-webkit-scrollbar {
-    width: 8px;
+  .bg-dockita-emerald {
+    background-color: rgb(16 185 129);
   }
 
-  .african-scrollbar::-webkit-scrollbar-track {
-    background: rgba(28, 94, 71, 0.3);
-    border-radius: 4px;
+  .bg-dockita-orange {
+    background-color: rgb(251 146 60);
   }
 
-  .african-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(212, 175, 55, 0.6);
-    border-radius: 4px;
-  }
-
-  .african-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 175, 55, 0.8);
+  .border-dockita-emerald {
+    border-color: rgb(16 185 129);
   }
 }
 
-/* Animations africaines */
-@keyframes fadeInUp {
+/* Animations */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -227,34 +213,26 @@
   }
 }
 
-@keyframes slideInFromRight {
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateY(100px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-@keyframes pulseGold {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+/* Responsive design pour petits écrans */
+@media (max-width: 640px) {
+  .dockita-button-primary,
+  .dockita-button-secondary,
+  .dockita-button-outline {
+    @apply text-sm py-2 px-4;
   }
-  50% {
-    box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+
+  .doctor-card {
+    @apply p-4;
   }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.animate-slide-in-right {
-  animation: slideInFromRight 0.8s ease-out;
-}
-
-.animate-pulse-gold {
-  animation: pulseGold 2s infinite;
 }
