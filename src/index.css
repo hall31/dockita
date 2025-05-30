@@ -150,7 +150,7 @@
 
   /* Cartes de médecins optimisées mobile */
   .doctor-card {
-    @apply dockita-card p-4 hover:border-emerald-200 cursor-pointer active:scale-98;
+    @apply dockita-card p-4 hover:border-emerald-200 cursor-pointer active:scale-[0.98];
     transition: all 0.2s ease;
   }
 
@@ -248,7 +248,7 @@
   }
 
   .active-scale-98 {
-    @apply transform active:scale-98 transition-transform duration-150;
+    @apply transform active:scale-[0.98] transition-transform duration-150;
   }
 
   /* Utilitaires pour les safe areas */
