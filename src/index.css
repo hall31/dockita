@@ -139,7 +139,7 @@
   }
 
   .senior-mode .button-african-outline {
-    @apply border-3 text-xl h-16 px-8 rounded-xl font-bold;
+    @apply border-2 text-xl h-16 px-8 rounded-xl font-bold;
   }
 
   .senior-mode .text-large {
