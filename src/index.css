@@ -6,42 +6,42 @@
 @layer base {
   :root {
     --background: 255 255 255;
-    --foreground: 17 24 39;
+    --foreground: 15 23 42;
 
     --card: 255 255 255;
-    --card-foreground: 17 24 39;
+    --card-foreground: 15 23 42;
 
     --popover: 255 255 255;
-    --popover-foreground: 17 24 39;
+    --popover-foreground: 15 23 42;
 
-    --primary: 16 185 129;
+    --primary: 71 85 105;
     --primary-foreground: 255 255 255;
 
-    --secondary: 249 250 251;
-    --secondary-foreground: 75 85 99;
+    --secondary: 248 250 252;
+    --secondary-foreground: 71 85 105;
 
-    --muted: 249 250 251;
-    --muted-foreground: 107 114 128;
+    --muted: 248 250 252;
+    --muted-foreground: 100 116 139;
 
-    --accent: 16 185 129;
+    --accent: 71 85 105;
     --accent-foreground: 255 255 255;
 
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
 
-    --border: 229 231 235;
-    --input: 229 231 235;
-    --ring: 16 185 129;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 71 85 105;
 
-    --radius: 0.5rem;
+    --radius: 8px;
   }
 
   /* Mode Senior */
   .senior-mode {
-    --primary: 59 130 246;
-    --accent: 59 130 246;
-    --ring: 59 130 246;
-    --radius: 0.75rem;
+    --primary: 37 99 235;
+    --accent: 37 99 235;
+    --ring: 37 99 235;
+    --radius: 12px;
   }
 }
 
@@ -51,74 +51,76 @@
   }
 
   body {
-    @apply bg-gray-50 text-foreground;
+    @apply bg-white text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height: 1.6;
+    line-height: 1.5;
+    font-weight: 400;
   }
 
   .senior-mode body {
     font-size: 18px;
-    line-height: 1.8;
+    line-height: 1.6;
+    font-weight: 500;
   }
 }
 
 @layer components {
-  .card-minimal {
-    @apply bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg;
+  .card-modern {
+    @apply bg-white border border-slate-200 hover:border-slate-300 transition-colors duration-200 rounded-lg;
   }
   
-  .input-minimal {
-    @apply bg-white border-gray-200 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all duration-200 rounded-md;
+  .input-modern {
+    @apply bg-white border-slate-200 focus:border-slate-400 focus:ring-1 focus:ring-slate-400 transition-all duration-200 rounded-lg h-12 px-4;
   }
   
-  .button-minimal {
-    @apply bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition-colors duration-200 shadow-sm rounded-md;
+  .button-modern {
+    @apply bg-slate-600 hover:bg-slate-700 text-white font-medium transition-colors duration-200 rounded-lg h-12 px-6;
   }
   
-  .button-outline-minimal {
-    @apply border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200 rounded-md;
+  .button-outline-modern {
+    @apply border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-medium transition-all duration-200 rounded-lg h-12 px-6;
   }
 
   /* Mode Senior Components */
-  .senior-mode .card-minimal {
-    @apply shadow-lg border-2 rounded-xl;
+  .senior-mode .card-modern {
+    @apply border-2 border-slate-300 rounded-xl;
   }
 
-  .senior-mode .input-minimal {
-    @apply text-lg h-14 px-4 border-2 focus:border-blue-500 focus:ring-blue-200 rounded-lg;
+  .senior-mode .input-modern {
+    @apply text-lg h-16 px-6 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl;
   }
 
-  .senior-mode .button-minimal {
-    @apply bg-blue-500 hover:bg-blue-600 text-lg h-14 px-6 rounded-lg font-semibold;
+  .senior-mode .button-modern {
+    @apply bg-blue-600 hover:bg-blue-700 text-xl h-16 px-8 rounded-xl font-semibold;
   }
 
-  .senior-mode .button-outline-minimal {
-    @apply border-2 border-gray-300 hover:border-blue-500 hover:bg-blue-50 text-lg h-14 px-6 rounded-lg;
+  .senior-mode .button-outline-modern {
+    @apply border-2 border-slate-300 hover:border-blue-500 hover:bg-blue-50 text-xl h-16 px-8 rounded-xl font-semibold;
   }
 
-  .senior-mode .text-minimal {
-    @apply text-lg;
+  .senior-mode .text-large {
+    @apply text-xl;
   }
 
   .senior-mode .text-title {
-    @apply text-2xl font-semibold;
+    @apply text-3xl font-bold;
   }
 
   .senior-mode .text-subtitle {
-    @apply text-xl;
+    @apply text-2xl font-medium;
   }
 }
 
 @layer utilities {
   .senior-spacing {
-    @apply space-y-6;
+    @apply space-y-8;
   }
 
   .senior-padding {
-    @apply p-6;
+    @apply p-8;
   }
 
   .senior-margin {
-    @apply m-4;
+    @apply m-6;
   }
 }

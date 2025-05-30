@@ -59,7 +59,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-africa-900 via-africa-800 to-emerald-900">
+    <div className="min-h-screen bg-white">
       <div className="pb-20"> {/* Space for bottom navigation */}
         {renderCurrentView()}
       </div>

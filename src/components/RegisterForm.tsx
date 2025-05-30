@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Stethoscope, Mail, Lock, User, Phone, GraduationCap } from 'lucide-react';
+import { Mail, Lock, User, Phone, GraduationCap } from 'lucide-react';
 import { useAuth } from './AuthContext';
 import { toast } from '@/hooks/use-toast';
 import SeniorModeToggle from './SeniorModeToggle';
@@ -68,10 +69,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
   };
 
   return (
-    <div className={`min-h-screen bg-gray-50 flex items-center justify-center p-4 ${isSeniorMode ? 'senior-mode' : ''}`}>
-      <div className="w-full max-w-md animate-fade-in">
+    <div className={`min-h-screen bg-white flex items-center justify-center p-6 ${isSeniorMode ? 'senior-mode' : ''}`}>
+      <div className="w-full max-w-md">
         {/* Mode Senior Toggle */}
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-end mb-6">
           <SeniorModeToggle 
             isSeniorMode={isSeniorMode}
             onToggle={() => setIsSeniorMode(!isSeniorMode)}
@@ -79,92 +80,97 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
         </div>
 
         {/* Header */}
-        <div className="text-center mb-6">
-          <div className="flex items-center justify-center mb-6">
-            <div className={`${isSeniorMode ? 'bg-blue-500 p-6 rounded-2xl' : 'bg-emerald-500 p-4 rounded-xl'}`}>
-              <Stethoscope className={`${isSeniorMode ? 'h-10 w-10' : 'h-8 w-8'} text-white`} />
-            </div>
-          </div>
-          <h1 className={`${isSeniorMode ? 'text-4xl font-semibold' : 'text-3xl font-light'} text-gray-900 mb-2`}>
-            TeleMed Afrique
+        <div className="text-center mb-8">
+          <h1 className={`${isSeniorMode ? 'text-title' : 'text-4xl'} font-light text-slate-900 mb-3`}>
+            TeleMed
           </h1>
-          <p className={`${isSeniorMode ? 'text-xl' : 'text-base'} text-gray-500 font-light`}>
-            Rejoignez notre communauté
+          <p className={`${isSeniorMode ? 'text-subtitle' : 'text-lg'} text-slate-500 font-light`}>
+            Rejoignez-nous
           </p>
         </div>
 
-        <Card className="card-minimal border-0 shadow-sm">
-          <CardHeader className={`${isSeniorMode ? 'senior-padding pb-4' : 'pb-6'}`}>
-            <CardTitle className={`text-center ${isSeniorMode ? 'text-title' : 'text-xl'} font-medium text-gray-900`}>
+        <Card className="card-modern border-0">
+          <CardHeader className={`${isSeniorMode ? 'senior-padding pb-6' : 'p-8 pb-6'}`}>
+            <CardTitle className={`text-center ${isSeniorMode ? 'text-title' : 'text-2xl'} font-light text-slate-900`}>
               Inscription
             </CardTitle>
           </CardHeader>
-          <CardContent className={`${isSeniorMode ? 'senior-spacing senior-padding' : ''}`}>
+          <CardContent className={`${isSeniorMode ? 'senior-spacing senior-padding pt-0' : 'p-8 pt-0'}`}>
             <form onSubmit={handleSubmit} className={`${isSeniorMode ? 'senior-spacing' : 'space-y-5'}`}>
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">Nom complet</label>
+              <div className={`${isSeniorMode ? 'space-y-3' : 'space-y-2'}`}>
+                <label className={`${isSeniorMode ? 'text-large' : 'text-sm'} font-medium text-slate-700 block`}>
+                  Nom complet
+                </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <User className={`absolute ${isSeniorMode ? 'left-6 top-5 h-6 w-6' : 'left-4 top-3.5 h-5 w-5'} text-slate-400`} />
                   <Input
                     type="text"
                     placeholder="Votre nom complet"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="pl-10 input-modern h-11"
+                    className={`${isSeniorMode ? 'pl-16 input-modern text-lg' : 'pl-12 input-modern'}`}
                     required
                   />
                 </div>
               </div>
               
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">Email</label>
+              <div className={`${isSeniorMode ? 'space-y-3' : 'space-y-2'}`}>
+                <label className={`${isSeniorMode ? 'text-large' : 'text-sm'} font-medium text-slate-700 block`}>
+                  Email
+                </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Mail className={`absolute ${isSeniorMode ? 'left-6 top-5 h-6 w-6' : 'left-4 top-3.5 h-5 w-5'} text-slate-400`} />
                   <Input
                     type="email"
                     placeholder="votre@email.com"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="pl-10 input-modern h-11"
+                    className={`${isSeniorMode ? 'pl-16 input-modern text-lg' : 'pl-12 input-modern'}`}
                     required
                   />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">Téléphone</label>
+              <div className={`${isSeniorMode ? 'space-y-3' : 'space-y-2'}`}>
+                <label className={`${isSeniorMode ? 'text-large' : 'text-sm'} font-medium text-slate-700 block`}>
+                  Téléphone
+                </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Phone className={`absolute ${isSeniorMode ? 'left-6 top-5 h-6 w-6' : 'left-4 top-3.5 h-5 w-5'} text-slate-400`} />
                   <Input
                     type="tel"
                     placeholder="+XXX XX XX XX XX"
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="pl-10 input-modern h-11"
+                    className={`${isSeniorMode ? 'pl-16 input-modern text-lg' : 'pl-12 input-modern'}`}
                     required
                   />
                 </div>
               </div>
               
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">Mot de passe</label>
+              <div className={`${isSeniorMode ? 'space-y-3' : 'space-y-2'}`}>
+                <label className={`${isSeniorMode ? 'text-large' : 'text-sm'} font-medium text-slate-700 block`}>
+                  Mot de passe
+                </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Lock className={`absolute ${isSeniorMode ? 'left-6 top-5 h-6 w-6' : 'left-4 top-3.5 h-5 w-5'} text-slate-400`} />
                   <Input
                     type="password"
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    className="pl-10 input-modern h-11"
+                    className={`${isSeniorMode ? 'pl-16 input-modern text-lg' : 'pl-12 input-modern'}`}
                     required
                   />
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-700">Je suis</label>
+              <div className={`${isSeniorMode ? 'space-y-3' : 'space-y-2'}`}>
+                <label className={`${isSeniorMode ? 'text-large' : 'text-sm'} font-medium text-slate-700 block`}>
+                  Je suis
+                </label>
                 <Select onValueChange={handleRoleChange}>
-                  <SelectTrigger className="input-modern h-11">
+                  <SelectTrigger className={`${isSeniorMode ? 'input-modern text-lg' : 'input-modern'}`}>
                     <SelectValue placeholder="Sélectionnez votre rôle" />
                   </SelectTrigger>
                   <SelectContent>
@@ -175,16 +181,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
               </div>
 
               {formData.role === 'doctor' && (
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-700">Spécialisation</label>
+                <div className={`${isSeniorMode ? 'space-y-3' : 'space-y-2'}`}>
+                  <label className={`${isSeniorMode ? 'text-large' : 'text-sm'} font-medium text-slate-700 block`}>
+                    Spécialisation
+                  </label>
                   <div className="relative">
-                    <GraduationCap className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <GraduationCap className={`absolute ${isSeniorMode ? 'left-6 top-5 h-6 w-6' : 'left-4 top-3.5 h-5 w-5'} text-slate-400`} />
                     <Input
                       type="text"
                       placeholder="Votre spécialisation"
                       value={formData.specialization}
                       onChange={(e) => handleInputChange('specialization', e.target.value)}
-                      className="pl-10 input-modern h-11"
+                      className={`${isSeniorMode ? 'pl-16 input-modern text-lg' : 'pl-12 input-modern'}`}
                       required
                     />
                   </div>
@@ -193,20 +201,20 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
 
               <Button
                 type="submit"
-                className="w-full button-modern h-11 mt-8"
+                className={`w-full button-modern ${isSeniorMode ? 'mt-10' : 'mt-8'}`}
                 disabled={loading}
               >
                 {loading ? "Inscription..." : "S'inscrire"}
               </Button>
             </form>
 
-            <div className={`text-center ${isSeniorMode ? 'pt-8' : 'pt-6'} border-t border-gray-100 mt-6`}>
-              <p className={`text-gray-600 ${isSeniorMode ? 'text-lg' : 'text-sm'}`}>
+            <div className={`text-center ${isSeniorMode ? 'pt-10 mt-10' : 'pt-8 mt-8'} border-t border-slate-100`}>
+              <p className={`text-slate-600 ${isSeniorMode ? 'text-large' : 'text-sm'}`}>
                 Déjà un compte ?{" "}
                 <button
                   type="button"
                   onClick={onSwitchToLogin}
-                  className={`${isSeniorMode ? 'text-blue-600 hover:text-blue-700' : 'text-emerald-600 hover:text-emerald-700'} font-medium transition-colors`}
+                  className={`${isSeniorMode ? 'text-blue-600 hover:text-blue-700' : 'text-slate-700 hover:text-slate-900'} font-medium transition-colors underline`}
                 >
                   Se connecter
                 </button>
