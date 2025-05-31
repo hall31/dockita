@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,9 +5,10 @@ import { Calendar, Video, Users, Heart, Clock, MapPin, Star, ArrowRight } from '
 
 interface DockitaWelcomeProps {
   onStartConsultation: () => void;
+  onNavigateToService?: (service: string) => void;
 }
 
-const DockitaWelcome: React.FC<DockitaWelcomeProps> = ({ onStartConsultation }) => {
+const DockitaWelcome: React.FC<DockitaWelcomeProps> = ({ onStartConsultation, onNavigateToService }) => {
   const availableDoctors = [
     {
       id: 1,
@@ -182,12 +182,16 @@ const DockitaWelcome: React.FC<DockitaWelcomeProps> = ({ onStartConsultation }) 
       {/* Services rapides */}
       <div className="grid grid-cols-2 gap-3">
         {[
-          { name: 'Urgences', icon: Heart, color: 'text-red-500', bg: 'bg-red-50' },
-          { name: 'Pharmacie', icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-          { name: 'Analyses', icon: Users, color: 'text-orange-500', bg: 'bg-orange-50' },
-          { name: 'Historique', icon: Clock, color: 'text-slate-500', bg: 'bg-slate-50' }
+          { name: 'Urgences', icon: Heart, color: 'text-red-500', bg: 'bg-red-50', service: 'urgences' },
+          { name: 'Pharmacie', icon: Calendar, color: 'text-emerald-500', bg: 'bg-emerald-50', service: 'pharmacie' },
+          { name: 'Analyses', icon: Users, color: 'text-orange-500', bg: 'bg-orange-50', service: 'analyses' },
+          { name: 'Historique', icon: Clock, color: 'text-slate-500', bg: 'bg-slate-50', service: 'historique' }
         ].map((service, index) => (
-          <Card key={index} className="hover:shadow-md transition-all duration-300 cursor-pointer border-0">
+          <Card 
+            key={index} 
+            className="hover:shadow-md transition-all duration-300 cursor-pointer border-0 active-scale-98"
+            onClick={() => onNavigateToService?.(service.service)}
+          >
             <CardContent className="p-4 text-center">
               <div className={`w-12 h-12 ${service.bg} rounded-full flex items-center justify-center mx-auto mb-3`}>
                 <service.icon className={`h-6 w-6 ${service.color}`} />

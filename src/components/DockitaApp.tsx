@@ -5,9 +5,15 @@ import { Home, Calendar, Video, User, Menu, Bell, Search } from 'lucide-react';
 import DockitaWelcome from './DockitaWelcome';
 import DockitaTeleconsultation from './DockitaTeleconsultation';
 import DockitaProfile from './DockitaProfile';
+import DockitaDoctors from './DockitaDoctors';
+import DockitaEmergency from './DockitaEmergency';
+import DockitaPharmacy from './DockitaPharmacy';
+import DockitaLabs from './DockitaLabs';
+import DockitaHistory from './DockitaHistory';
+import DockitaAppointments from './DockitaAppointments';
 
 const DockitaApp: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'welcome' | 'consultation' | 'profile' | 'doctors'>('welcome');
+  const [currentView, setCurrentView] = useState<'welcome' | 'consultation' | 'profile' | 'doctors' | 'emergency' | 'pharmacy' | 'labs' | 'history' | 'appointments'>('welcome');
   const [language, setLanguage] = useState<'fr' | 'en'>('fr');
 
   const navigationItems = [
@@ -20,13 +26,45 @@ const DockitaApp: React.FC = () => {
   const renderCurrentView = () => {
     switch (currentView) {
       case 'welcome':
-        return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} />;
+        return (
+          <DockitaWelcome 
+            onStartConsultation={() => setCurrentView('consultation')}
+            onNavigateToService={(service: string) => {
+              switch (service) {
+                case 'urgences':
+                  setCurrentView('emergency');
+                  break;
+                case 'pharmacie':
+                  setCurrentView('pharmacy');
+                  break;
+                case 'analyses':
+                  setCurrentView('labs');
+                  break;
+                case 'historique':
+                  setCurrentView('history');
+                  break;
+                default:
+                  break;
+              }
+            }}
+          />
+        );
       case 'consultation':
         return <DockitaTeleconsultation onEndCall={() => setCurrentView('welcome')} />;
       case 'profile':
         return <DockitaProfile />;
       case 'doctors':
-        return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} />;
+        return <DockitaDoctors onStartConsultation={() => setCurrentView('consultation')} />;
+      case 'emergency':
+        return <DockitaEmergency />;
+      case 'pharmacy':
+        return <DockitaPharmacy />;
+      case 'labs':
+        return <DockitaLabs />;
+      case 'history':
+        return <DockitaHistory />;
+      case 'appointments':
+        return <DockitaAppointments />;
       default:
         return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} />;
     }
