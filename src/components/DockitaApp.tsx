@@ -11,9 +11,10 @@ import DockitaPharmacy from './DockitaPharmacy';
 import DockitaLabs from './DockitaLabs';
 import DockitaHistory from './DockitaHistory';
 import DockitaAppointments from './DockitaAppointments';
+import DockitaSettings from './DockitaSettings';
 
 const DockitaApp: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'welcome' | 'consultation' | 'profile' | 'doctors' | 'emergency' | 'pharmacy' | 'labs' | 'history' | 'appointments'>('welcome');
+  const [currentView, setCurrentView] = useState<'welcome' | 'consultation' | 'profile' | 'doctors' | 'emergency' | 'pharmacy' | 'labs' | 'history' | 'appointments' | 'settings'>('welcome');
   const [language, setLanguage] = useState<'fr' | 'en'>('fr');
 
   const navigationItems = [
@@ -43,6 +44,12 @@ const DockitaApp: React.FC = () => {
                 case 'historique':
                   setCurrentView('history');
                   break;
+                case 'rendez-vous':
+                  setCurrentView('appointments');
+                  break;
+                case 'parametres':
+                  setCurrentView('settings');
+                  break;
                 default:
                   break;
               }
@@ -54,7 +61,7 @@ const DockitaApp: React.FC = () => {
       case 'profile':
         return <DockitaProfile />;
       case 'doctors':
-        return <DockitaDoctors onStartConsultation={() => setCurrentView('consultation')} />;
+        return <DockitaDoctors />;
       case 'emergency':
         return <DockitaEmergency />;
       case 'pharmacy':
@@ -65,8 +72,10 @@ const DockitaApp: React.FC = () => {
         return <DockitaHistory />;
       case 'appointments':
         return <DockitaAppointments />;
+      case 'settings':
+        return <DockitaSettings />;
       default:
-        return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} />;
+        return <DockitaWelcome onStartConsultation={() => setCurrentView('consultation')} onNavigateToService={() => {}} />;
     }
   };
 
