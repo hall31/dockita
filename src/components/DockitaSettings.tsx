@@ -45,6 +45,21 @@ const DockitaSettings: React.FC = () => {
     autoBackup: true
   });
 
+  const handleNotificationChange = (key: keyof typeof notifications, value: boolean) => {
+    setNotifications(prev => ({ ...prev, [key]: value }));
+    console.log(`Notification ${key} changée:`, value);
+  };
+
+  const handlePrivacyChange = (key: keyof typeof privacy, value: boolean) => {
+    setPrivacy(prev => ({ ...prev, [key]: value }));
+    console.log(`Confidentialité ${key} changée:`, value);
+  };
+
+  const handlePreferenceChange = (key: keyof typeof preferences, value: boolean | string) => {
+    setPreferences(prev => ({ ...prev, [key]: value }));
+    console.log(`Préférence ${key} changée:`, value);
+  };
+
   const settingsCategories = [
     {
       title: 'Notifications',
@@ -54,25 +69,25 @@ const DockitaSettings: React.FC = () => {
           label: 'Consultations',
           description: 'Notifications pour vos rendez-vous',
           value: notifications.consultations,
-          onChange: (value: boolean) => setNotifications(prev => ({ ...prev, consultations: value }))
+          onChange: (value: boolean) => handleNotificationChange('consultations', value)
         },
         {
           label: 'Rappels médicaments',
           description: 'Rappels pour vos traitements',
           value: notifications.reminders,
-          onChange: (value: boolean) => setNotifications(prev => ({ ...prev, reminders: value }))
+          onChange: (value: boolean) => handleNotificationChange('reminders', value)
         },
         {
           label: 'Conseils santé',
           description: 'Conseils et articles santé',
           value: notifications.health,
-          onChange: (value: boolean) => setNotifications(prev => ({ ...prev, health: value }))
+          onChange: (value: boolean) => handleNotificationChange('health', value)
         },
         {
           label: 'Promotions',
           description: 'Offres spéciales et promotions',
           value: notifications.promotions,
-          onChange: (value: boolean) => setNotifications(prev => ({ ...prev, promotions: value }))
+          onChange: (value: boolean) => handleNotificationChange('promotions', value)
         }
       ]
     },
@@ -84,19 +99,19 @@ const DockitaSettings: React.FC = () => {
           label: 'Partage des données',
           description: 'Partager les données pour la recherche',
           value: privacy.shareData,
-          onChange: (value: boolean) => setPrivacy(prev => ({ ...prev, shareData: value }))
+          onChange: (value: boolean) => handlePrivacyChange('shareData', value)
         },
         {
           label: 'Analyses d\'usage',
           description: 'Améliorer l\'application via les analytics',
           value: privacy.analytics,
-          onChange: (value: boolean) => setPrivacy(prev => ({ ...prev, analytics: value }))
+          onChange: (value: boolean) => handlePrivacyChange('analytics', value)
         },
         {
           label: 'Localisation',
           description: 'Utiliser votre position pour les services',
           value: privacy.location,
-          onChange: (value: boolean) => setPrivacy(prev => ({ ...prev, location: value }))
+          onChange: (value: boolean) => handlePrivacyChange('location', value)
         }
       ]
     },
@@ -108,36 +123,36 @@ const DockitaSettings: React.FC = () => {
           label: 'Mode sombre',
           description: 'Interface en mode sombre',
           value: preferences.darkMode,
-          onChange: (value: boolean) => setPreferences(prev => ({ ...prev, darkMode: value }))
+          onChange: (value: boolean) => handlePreferenceChange('darkMode', value)
         },
         {
           label: 'Son activé',
           description: 'Sons de notification et interface',
           value: preferences.soundEnabled,
-          onChange: (value: boolean) => setPreferences(prev => ({ ...prev, soundEnabled: value }))
+          onChange: (value: boolean) => handlePreferenceChange('soundEnabled', value)
         },
         {
           label: 'Sauvegarde auto',
           description: 'Sauvegarde automatique des données',
           value: preferences.autoBackup,
-          onChange: (value: boolean) => setPreferences(prev => ({ ...prev, autoBackup: value }))
+          onChange: (value: boolean) => handlePreferenceChange('autoBackup', value)
         }
       ]
     }
   ];
 
   const quickActions = [
-    { icon: User, label: 'Modifier le profil', action: () => {}, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-    { icon: Heart, label: 'Données de santé', action: () => {}, color: 'text-red-600', bg: 'bg-red-50' },
-    { icon: Lock, label: 'Changer mot de passe', action: () => {}, color: 'text-orange-600', bg: 'bg-orange-50' },
-    { icon: Download, label: 'Exporter données', action: () => {}, color: 'text-blue-600', bg: 'bg-blue-50' }
+    { icon: User, label: 'Modifier le profil', action: () => console.log('Modifier profil'), color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { icon: Heart, label: 'Données de santé', action: () => console.log('Données santé'), color: 'text-red-600', bg: 'bg-red-50' },
+    { icon: Lock, label: 'Changer mot de passe', action: () => console.log('Changer mot de passe'), color: 'text-orange-600', bg: 'bg-orange-50' },
+    { icon: Download, label: 'Exporter données', action: () => console.log('Exporter données'), color: 'text-blue-600', bg: 'bg-blue-50' }
   ];
 
   const supportItems = [
-    { icon: HelpCircle, label: 'Centre d\'aide', action: () => {} },
-    { icon: Mail, label: 'Nous contacter', action: () => {} },
-    { icon: Info, label: 'À propos', action: () => {} },
-    { icon: Trash2, label: 'Supprimer le compte', action: () => {}, color: 'text-red-600' }
+    { icon: HelpCircle, label: 'Centre d\'aide', action: () => console.log('Centre aide') },
+    { icon: Mail, label: 'Nous contacter', action: () => console.log('Contact') },
+    { icon: Info, label: 'À propos', action: () => console.log('À propos') },
+    { icon: Trash2, label: 'Supprimer le compte', action: () => console.log('Supprimer compte'), color: 'text-red-600' }
   ];
 
   return (
@@ -157,7 +172,7 @@ const DockitaSettings: React.FC = () => {
       <div className="grid grid-cols-2 gap-3">
         {quickActions.map((action, index) => (
           <Card key={index} className="hover:shadow-md transition-all duration-300 border-0 cursor-pointer active-scale-95">
-            <CardContent className="p-4 text-center">
+            <CardContent className="p-4 text-center" onClick={action.action}>
               <div className={`w-12 h-12 ${action.bg} rounded-full flex items-center justify-center mx-auto mb-3`}>
                 <action.icon className={`h-6 w-6 ${action.color}`} />
               </div>
@@ -212,12 +227,12 @@ const DockitaSettings: React.FC = () => {
             ].map((lang) => (
               <button
                 key={lang.code}
-                className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${
+                className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors active-scale-95 ${
                   preferences.language === lang.code
                     ? 'bg-emerald-50 border-2 border-emerald-200'
                     : 'bg-slate-50 hover:bg-slate-100'
                 }`}
-                onClick={() => setPreferences(prev => ({ ...prev, language: lang.code }))}
+                onClick={() => handlePreferenceChange('language', lang.code)}
               >
                 <div className="flex items-center space-x-3">
                   <span className="text-xl">{lang.flag}</span>
@@ -244,7 +259,7 @@ const DockitaSettings: React.FC = () => {
             <button
               key={index}
               onClick={item.action}
-              className={`w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-colors ${
+              className={`w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-colors active-scale-95 ${
                 index !== supportItems.length - 1 ? 'border-b border-slate-100' : ''
               } ${item.color || 'text-slate-700'}`}
             >
@@ -262,8 +277,8 @@ const DockitaSettings: React.FC = () => {
       <Card className="border-0 shadow-md border-red-200 bg-red-50">
         <CardContent className="p-0">
           <button
-            className="w-full flex items-center justify-center p-4 text-red-600 hover:bg-red-100 transition-colors rounded-lg"
-            onClick={() => {}}
+            className="w-full flex items-center justify-center p-4 text-red-600 hover:bg-red-100 transition-colors rounded-lg active-scale-95"
+            onClick={() => console.log('Déconnexion')}
           >
             <LogOut className="h-5 w-5 mr-2" />
             <span className="font-medium">Se déconnecter</span>

@@ -20,7 +20,12 @@ import {
   Activity
 } from 'lucide-react';
 
-const DockitaProfile: React.FC = () => {
+interface DockitaProfileProps {
+  onNavigateToSettings?: () => void;
+  onNavigateToHistory?: () => void;
+}
+
+const DockitaProfile: React.FC<DockitaProfileProps> = ({ onNavigateToSettings, onNavigateToHistory }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     name: 'Amadou Diallo',
@@ -42,25 +47,25 @@ const DockitaProfile: React.FC = () => {
   };
 
   const quickActions = [
-    { icon: Heart, label: 'Urgence médicale', color: 'text-red-600', bg: 'bg-red-50' },
-    { icon: Bell, label: 'Notifications', color: 'text-orange-600', bg: 'bg-orange-50' },
-    { icon: Settings, label: 'Paramètres', color: 'text-slate-600', bg: 'bg-slate-50' },
-    { icon: Shield, label: 'Confidentialité', color: 'text-emerald-600', bg: 'bg-emerald-50' }
+    { icon: Heart, label: 'Urgence médicale', color: 'text-red-600', bg: 'bg-red-50', action: () => {} },
+    { icon: Bell, label: 'Notifications', color: 'text-orange-600', bg: 'bg-orange-50', action: () => {} },
+    { icon: Settings, label: 'Paramètres', color: 'text-slate-600', bg: 'bg-slate-50', action: onNavigateToSettings },
+    { icon: Shield, label: 'Confidentialité', color: 'text-emerald-600', bg: 'bg-emerald-50', action: () => {} }
   ];
 
   const menuItems = [
     { icon: User, label: 'Informations personnelles', action: () => setIsEditing(true) },
-    { icon: Activity, label: 'Historique médical', action: () => {} },
+    { icon: Activity, label: 'Historique médical', action: onNavigateToHistory },
     { icon: Heart, label: 'Données de santé', action: () => {} },
     { icon: Bell, label: 'Notifications', action: () => {} },
     { icon: Shield, label: 'Confidentialité', action: () => {} },
-    { icon: Settings, label: 'Paramètres', action: () => {} },
+    { icon: Settings, label: 'Paramètres', action: onNavigateToSettings },
     { icon: LogOut, label: 'Se déconnecter', action: () => {}, color: 'text-red-600' }
   ];
 
   const handleSave = () => {
     setIsEditing(false);
-    // Here you would typically save to backend
+    console.log('Profil sauvegardé:', profileData);
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -79,7 +84,7 @@ const DockitaProfile: React.FC = () => {
             <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto">
               <User className="h-12 w-12 text-white" />
             </div>
-            <button className="absolute bottom-0 right-0 w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center border-2 border-white">
+            <button className="absolute bottom-0 right-0 w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center border-2 border-white active-scale-95">
               <Camera className="h-4 w-4 text-white" />
             </button>
           </div>
@@ -102,8 +107,8 @@ const DockitaProfile: React.FC = () => {
       {/* Actions rapides */}
       <div className="grid grid-cols-2 gap-3">
         {quickActions.map((action, index) => (
-          <Card key={index} className="hover:shadow-md transition-all duration-300 border-0 cursor-pointer active-scale-98">
-            <CardContent className="p-4 text-center">
+          <Card key={index} className="hover:shadow-md transition-all duration-300 border-0 cursor-pointer active-scale-95">
+            <CardContent className="p-4 text-center" onClick={action.action}>
               <div className={`w-12 h-12 ${action.bg} rounded-full flex items-center justify-center mx-auto mb-3`}>
                 <action.icon className={`h-6 w-6 ${action.color}`} />
               </div>
@@ -140,7 +145,7 @@ const DockitaProfile: React.FC = () => {
             <Button
               onClick={() => isEditing ? handleSave() : setIsEditing(true)}
               size="sm"
-              className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-full"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-full active-scale-95"
             >
               {isEditing ? <Save className="h-4 w-4 mr-1" /> : <Edit className="h-4 w-4 mr-1" />}
               {isEditing ? 'Sauvegarder' : 'Modifier'}
@@ -149,6 +154,7 @@ const DockitaProfile: React.FC = () => {
         </CardHeader>
         <CardContent className="pt-0 space-y-4">
           <div className="grid grid-cols-1 gap-4">
+            {/* Nom complet */}
             <div>
               <label className="text-sm font-medium text-slate-600">Nom complet</label>
               {isEditing ? (
@@ -163,6 +169,7 @@ const DockitaProfile: React.FC = () => {
               )}
             </div>
 
+            {/* Email */}
             <div>
               <label className="text-sm font-medium text-slate-600">Email</label>
               {isEditing ? (
@@ -177,6 +184,7 @@ const DockitaProfile: React.FC = () => {
               )}
             </div>
 
+            {/* Téléphone */}
             <div>
               <label className="text-sm font-medium text-slate-600">Téléphone</label>
               {isEditing ? (
@@ -191,6 +199,7 @@ const DockitaProfile: React.FC = () => {
               )}
             </div>
 
+            {/* Date de naissance */}
             <div>
               <label className="text-sm font-medium text-slate-600">Date de naissance</label>
               {isEditing ? (
@@ -205,6 +214,7 @@ const DockitaProfile: React.FC = () => {
               )}
             </div>
 
+            {/* Adresse */}
             <div>
               <label className="text-sm font-medium text-slate-600">Adresse</label>
               {isEditing ? (
@@ -258,7 +268,7 @@ const DockitaProfile: React.FC = () => {
             <button
               key={index}
               onClick={item.action}
-              className={`w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-colors ${
+              className={`w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-colors active-scale-95 ${
                 index !== menuItems.length - 1 ? 'border-b border-slate-100' : ''
               } ${item.color || 'text-slate-700'}`}
             >

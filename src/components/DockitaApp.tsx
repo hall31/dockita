@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Home, Calendar, Video, User, Menu, Bell, Search } from 'lucide-react';
@@ -59,7 +58,12 @@ const DockitaApp: React.FC = () => {
       case 'consultation':
         return <DockitaTeleconsultation onEndCall={() => setCurrentView('welcome')} />;
       case 'profile':
-        return <DockitaProfile />;
+        return (
+          <DockitaProfile 
+            onNavigateToSettings={() => setCurrentView('settings')}
+            onNavigateToHistory={() => setCurrentView('history')}
+          />
+        );
       case 'doctors':
         return <DockitaDoctors />;
       case 'emergency':
